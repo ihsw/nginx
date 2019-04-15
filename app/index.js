@@ -8,12 +8,12 @@ app.get("/", (_, res) => res.send("Hello, world!"));
 
 const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on ${port}`));
-const close = () => {
-    console.log("Caught SIGTERM, closing server");
+const close = (signal) => {
+    console.log(`Caught ${signal}, closing server`);
     server.close(() => {
         console.log("Server closed, exiting");
         process.exit(0);
     });
 };
-process.on("SIGTERM", close);
-process.on("SIGINT", close);
+process.on("SIGTERM", () => close("SIGTERM"));
+process.on("SIGINT", () => close("SIGINT"));
