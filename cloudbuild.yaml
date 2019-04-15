@@ -6,16 +6,21 @@ steps:
     '-t', 'gcr.io/$PROJECT_ID/nginx',
     '.'
   ]
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   args: [
-#     'beta',
-#     'run',
-#     'deploy',
-#     '--image', 'gcr.io/$PROJECT_ID/nginx',
-#     '--region', 'us-central1',
-#     '--allow-unauthenticated',
-#     'ihsw-nginx',
-# ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'push',
+    'gcr.io/$PROJECT_ID/nginx',
+  ]
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'beta',
+    'run',
+    'deploy',
+    '--image', 'gcr.io/$PROJECT_ID/nginx',
+    '--region', 'us-central1',
+    '--allow-unauthenticated',
+    'ihsw-nginx',
+]
 
 images: [
     'gcr.io/$PROJECT_ID/nginx:latest',
